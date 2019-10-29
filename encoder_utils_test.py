@@ -31,7 +31,7 @@ def _tokenize_function():
         name="encoder",
         trainable=False,
     )
-    text = tf.placeholder(dtype=tf.string, shape=[1])
+    text = tf.compat.v1.placeholder(dtype=tf.string, shape=[1])
     tokens = module(text, signature="tokenize")
     return text, tokens
 
@@ -53,7 +53,7 @@ class DetokenizeTest(tf.test.TestCase):
     def test_tokenize_detokenize(self):
         with self.session() as sess:
             text_placeholder, tokens_tensor = _tokenize_function()
-            sess.run(tf.tables_initializer())
+            sess.run(tf.compat.v1.tables_initializer())
 
             def tokenize(text_input):
                 return [
@@ -81,7 +81,7 @@ class DetokenizeTest(tf.test.TestCase):
     def test_tokenize_detokenize_fuzz(self):
         with self.session() as sess:
             text_placeholder, tokens_tensor = _tokenize_function()
-            sess.run(tf.tables_initializer())
+            sess.run(tf.compat.v1.tables_initializer())
 
             def tokenize(text_input):
                 return [
@@ -197,7 +197,7 @@ class SubtokenSpansTest(tf.test.TestCase):
         """Test with random fuzzed inputs."""
         with self.session() as sess:
             text_placeholder, tokens_tensor = _tokenize_function()
-            sess.run(tf.tables_initializer())
+            sess.run(tf.compat.v1.tables_initializer())
             spans = encoder_utils.subtoken_spans(tokens_tensor)
 
             alphabet = u"abcdefg :.?!-@ éàèù 你好 ， 世界 包子 "

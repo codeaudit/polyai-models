@@ -79,7 +79,7 @@ def subtoken_spans(tokens, name=None):
         token_lengths = tf.strings.length(
             tf.strings.regex_replace(tokens, TOKEN_START, ""),
             unit="UTF8_CHAR",
-        ) + tf.to_int32(prefixed_with_space)
+        ) + tf.cast(prefixed_with_space, tf.int32)
         start_indices = tf.cumsum(token_lengths, axis=1, exclusive=True)
         end_indices = tf.cumsum(token_lengths, axis=1, exclusive=False)
         return tf.transpose(tf.stack([start_indices, end_indices]), [1, 2, 0])
