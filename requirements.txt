@@ -1,3 +1,4 @@
+regex==2019.8.19
 tensorflow==1.14.0
 tensorflow_hub==0.6.0
 tensorflow_text==0.1.0

@@ -24,9 +24,9 @@ class EncoderLayersTest(tf.test.TestCase):
             ]
             self.assertEqual(len(weights), len(layer.losses))
             sess.run([
-                tf.local_variables_initializer(),
-                tf.global_variables_initializer(),
-                tf.tables_initializer(),
+                tf.compat.v1.local_variables_initializer(),
+                tf.compat.v1.global_variables_initializer(),
+                tf.compat.v1.tables_initializer(),
             ])
             encodings_val = sess.run(encodings)
             self.assertEqual(list(encodings_val.shape), [4, 3])
@@ -53,9 +53,9 @@ class EncoderLayersTest(tf.test.TestCase):
             ]
             self.assertEqual(len(weights), len(layer.losses))
             sess.run([
-                tf.local_variables_initializer(),
-                tf.global_variables_initializer(),
-                tf.tables_initializer(),
+                tf.compat.v1.local_variables_initializer(),
+                tf.compat.v1.global_variables_initializer(),
+                tf.compat.v1.tables_initializer(),
             ])
             encodings_val = sess.run(encodings)
             self.assertEqual(list(encodings_val.shape), [4, 5])
@@ -82,9 +82,9 @@ class EncoderLayersTest(tf.test.TestCase):
             ]
             self.assertEqual(len(weights), len(layer.losses))
             sess.run([
-                tf.local_variables_initializer(),
-                tf.global_variables_initializer(),
-                tf.tables_initializer(),
+                tf.compat.v1.local_variables_initializer(),
+                tf.compat.v1.global_variables_initializer(),
+                tf.compat.v1.tables_initializer(),
             ])
             encodings_val = sess.run(encodings)
             self.assertEqual(list(encodings_val.shape), [4, 5])
@@ -115,9 +115,9 @@ class EncoderLayersTest(tf.test.TestCase):
             # both context and response.
             self.assertEqual(len(weights) + 1, len(layer.losses))
             sess.run([
-                tf.local_variables_initializer(),
-                tf.global_variables_initializer(),
-                tf.tables_initializer(),
+                tf.compat.v1.local_variables_initializer(),
+                tf.compat.v1.global_variables_initializer(),
+                tf.compat.v1.tables_initializer(),
             ])
             context_encodings_val = sess.run(context_encodings)
             self.assertEqual(list(context_encodings_val.shape), [2, 5])
@@ -153,9 +153,9 @@ class EncoderLayersTest(tf.test.TestCase):
             # context, extra contexts, and response.
             self.assertEqual(len(weights) + 2, len(layer.losses))
             sess.run([
-                tf.local_variables_initializer(),
-                tf.global_variables_initializer(),
-                tf.tables_initializer(),
+                tf.compat.v1.local_variables_initializer(),
+                tf.compat.v1.global_variables_initializer(),
+                tf.compat.v1.tables_initializer(),
             ])
             context_encodings_val = sess.run(context_encodings)
             self.assertEqual(list(context_encodings_val.shape), [2, 5])
@@ -186,9 +186,9 @@ class EncoderLayersTest(tf.test.TestCase):
             ]
             self.assertEqual(len(weights), len(layer.losses))
             sess.run([
-                tf.local_variables_initializer(),
-                tf.global_variables_initializer(),
-                tf.tables_initializer(),
+                tf.compat.v1.local_variables_initializer(),
+                tf.compat.v1.global_variables_initializer(),
+                tf.compat.v1.tables_initializer(),
             ])
             tokens_val = sess.run(tokens)
             self.assertEqual(list(tokens_val.shape), [2, 26])
@@ -219,9 +219,9 @@ class EncoderLayersTest(tf.test.TestCase):
 
             # check layer still works
             sess.run([
-                tf.local_variables_initializer(),
-                tf.global_variables_initializer(),
-                tf.tables_initializer(),
+                tf.compat.v1.local_variables_initializer(),
+                tf.compat.v1.global_variables_initializer(),
+                tf.compat.v1.tables_initializer(),
             ])
             tokens_val = sess.run(tokens)
             self.assertEqual(list(tokens_val.shape), [2, 26])
