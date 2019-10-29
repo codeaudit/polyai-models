@@ -147,7 +147,7 @@ class SentenceEncoderLayer(EncoderLayerBase):
 
     def call(self, sentences):
         """Compute the output of the layer."""
-        return self._encoder(sentences, signature="encode_sentence")
+        return self._encoder(sentences)  # this is the default signature
 
 
 class ContextEncoderLayer(EncoderLayerBase):
@@ -166,7 +166,7 @@ class ContextEncoderLayer(EncoderLayerBase):
 
     def call(self, sentences):
         """Compute the output of the layer."""
-        return self._encoder(sentences)
+        return self._encoder(sentences, signature="encode_context")
 
 
 class ResponseEncoderLayer(EncoderLayerBase):
