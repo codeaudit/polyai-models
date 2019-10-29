@@ -1,5 +1,7 @@
 tensorflow==1.14.0
+tensorflow_hub==0.6.0
 tensorflow_text==0.1.0
+
 flake8==3.7.6
 isort==4.3.4
 pep8-naming==0.5.0
