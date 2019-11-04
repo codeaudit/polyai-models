@@ -87,7 +87,7 @@ class EncoderClientTest(unittest.TestCase):
                 signature, {"encode_context", "encode_response", None})
             self.assertIsInstance(input, tf.Tensor)
             self.assertEqual(input.dtype, tf.string)
-            if signature is "encode_context":
+            if signature == "encode_context":
                 return tf.ones([tf.shape(input)[0], 3])
 
         mock_module_cls.return_value = mock_fn
