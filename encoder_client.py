@@ -244,21 +244,13 @@ def cache_encodings(encoding_function, cache_size):
         a cached version of `encoding_function`.
         This has the following attributes:
             cache_hits: the number of times the cache has been hit.
-            add_to_cache: a callable that takes a text and an encoding vector,
-                adding the text to the cache. Added texts never get deleted
-                from the cache.
 
     """
     cache = OrderedDict()
-    manual_cache = {}  # for manually added entries added with add_to_cache.
     # Protect modification of the cache with a lock.
     lock = Lock()
     # Number of cache hits.
     hits = 0
-
-    def add_to_cache(text, encoding):
-        with lock:
-            manual_cache[text] = encoding
 
     @wraps(encoding_function)
     def _cached_function(examples):
@@ -270,16 +262,12 @@ def cache_encodings(encoding_function, cache_size):
         uncached_examples = []
         for example in unique_examples:
             with lock:
-                value = manual_cache.get(example)
-                manual_hit = value is not None
-                if value is None:
-                    value = cache.get(example)
+                value = cache.get(example)
                 if value is not None:
                     hits += 1
                     encodings[example] = value
                     # Move the key to the front of the cache.
-                    if not manual_hit:
-                        cache.move_to_end(example)
+                    cache.move_to_end(example)
                 else:
                     uncached_examples.append(example)
 
@@ -306,7 +294,6 @@ def cache_encodings(encoding_function, cache_size):
         return hits
 
     _cached_function.cache_hits = cache_hits
-    _cached_function.add_to_cache = add_to_cache
 
     return _cached_function
 
