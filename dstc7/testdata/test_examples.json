@@ -1,0 +1,64 @@
+[
+  {
+      "data-split": "test",
+      "example-id": 0,
+      "messages-so-far": [
+          {
+              "speaker": "participant_1",
+              "utterance": "0 context 1"
+          },
+          {
+              "speaker": "participant_2",
+              "utterance": "0 context 2"
+          }
+      ],
+      "options-for-next": [
+          {
+              "candidate-id": "0A",
+              "utterance": "0 candidate A"
+          },
+          {
+              "candidate-id": "0B",
+              "utterance": "0 candidate B"
+          },
+          {
+              "candidate-id": "0C",
+              "utterance": "0 candidate C"
+          }
+      ],
+      "scenario": 1
+  },
+  {
+      "data-split": "test",
+      "example-id": 1,
+      "messages-so-far": [
+          {
+              "speaker": "participant_1",
+              "utterance": "1 context 1"
+          },
+          {
+              "speaker": "participant_2",
+              "utterance": "1 context 2"
+          },
+          {
+              "speaker": "participant_1",
+              "utterance": "1 context 3"
+          }
+      ],
+      "options-for-next": [
+          {
+              "candidate-id": "1A",
+              "utterance": "1 candidate A"
+          },
+          {
+              "candidate-id": "1B",
+              "utterance": "1 candidate B"
+          },
+          {
+              "candidate-id": "1C",
+              "utterance": "1 candidate C"
+          }
+      ],
+      "scenario": 1
+  }
+]
