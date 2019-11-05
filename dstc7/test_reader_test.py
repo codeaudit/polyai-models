@@ -1,4 +1,4 @@
-"""Tests for data.py.
+"""Tests for test_reader.py.
 
 Copyright PolyAI Limited.
 """
