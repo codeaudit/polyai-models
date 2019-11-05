@@ -62,7 +62,7 @@ def _evaluate(client, examples):
         # Find the position of 0 in the argsort, as index 0 is the correct
         # response.
         ranks.append((-scores).argsort().argmin())
-        if i + 1 % 100 == 0:
+        if (i + 1) % 100 == 0:
             glog.info(f"Scored {i + 1} / {len(examples)} examples.")
 
     ranks = numpy.asarray(ranks)

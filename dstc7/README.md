@@ -28,5 +28,8 @@ python dstc7/evaluate_encoder.py \
 this should give the final output:
 
 ```
-
+Recall@1 = 0.712
+Recall@10 = 0.931
+Recall@50 = 0.986
+MRR = 0.788
 ```
