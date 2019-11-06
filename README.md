@@ -74,7 +74,7 @@ response_encodings = module(
 
 **encode_sequence**
 
- Takes as input `sentences`, a string tensor of sentences to encode. This outputs sequence encodings, a 3-tensor of shape `[batch_size, max_sequence_length, 512]`, as well as the corresponding subword tokens, a utf8-encoded matrix of shape `[batch_size, max_sequence_length]`. The tokens matrix is padded with empty strings, which may help in masking the sequence tensor.
+ Takes as input `sentences`, a string tensor of sentences to encode. This outputs sequence encodings, a 3-tensor of shape `[batch_size, max_sequence_length, 512]`, as well as the corresponding subword tokens, a utf8-encoded matrix of shape `[batch_size, max_sequence_length]`. The tokens matrix is padded with empty strings, which may help in masking the sequence tensor. The [`encoder_utils.py`](encoder_utils.py) library has a few functions for dealing with these tokenizations, including a detokenization function, and a function that infers byte spans in the original strings.  
 
 
 ```python
