@@ -8,13 +8,13 @@
 
 This repo shares models from [PolyAI](https://poly-ai.com) publications, including the *PolyAI encoder model*. These are shared as Tensorflow Hub modules, listed below.
 We also share example code and utility classes, though for many the
-Tensorflow Hub URLs will be enough
+Tensorflow Hub URLs will be enough.
 
 
 * [Requirements](#requirements)
 * [Models](#models)
   * [PolyAI Encoder](#polyai-encoder)
-  * [PolyAI Encoder with extra contexts](#polyai-encoder-with-extra-contexts)
+  * [Multi Context PolyAI Encoder](#multi-context-polyai-encoder)
   * [DSTC7 Ubuntu Encoder](#dstc7-ubuntu-encoder)
 * [Keras layers](#keras-layers)
 * [Encoder client](#encoder-client)
@@ -23,7 +23,7 @@ Tensorflow Hub URLs will be enough
 
 # Requirements
 
-Using these models requires [Tensorflow Hub](https://www.tensorflow.org/hub) and [Tensorflow Text](https://www.tensorflow.org/tutorials/tensorflow_text/intro). In particular, Tensorflow text provides ops that allow the model to directly work on text, requiring no pre-processing or tokenization from the user. We test using Tensorflow version 1.14 and Tensorflow Text version 0.6.0 (which is compatible with Tensorflow 1.14). A list of available versions can be found [on the tf text github repo](https://github.com/tensorflow/text/releases).
+Using these models requires [Tensorflow Hub](https://www.tensorflow.org/hub) and [Tensorflow Text](https://www.tensorflow.org/tutorials/tensorflow_text/intro). In particular, Tensorflow Text provides ops that allow the model to directly work on text, requiring no pre-processing or tokenization from the user. We test using Tensorflow version 1.14 and Tensorflow Text version 0.6.0 (which is compatible with Tensorflow 1.14). A list of available versions can be found [on the Tensorflow Text github repo](https://github.com/tensorflow/text/releases).
 
 
 # Models
@@ -33,7 +33,7 @@ Using these models requires [Tensorflow Hub](https://www.tensorflow.org/hub) and
 This is the PolyAI encoder, using subword representations and ligher-weight more efficient transformer-style
 blocks to encode text, as described in TODO.
 The model cost under $100 to train from scratch, can be quantized to under 60MB, and is competitive with larger Transformer networks on conversational tasks.
-We share unquantized version of the model, facilitating fine-tuning. Please [get in touch](https://www.polyai.com/contact/) if you are interested in using the quantized version. The Tensorflow Hub url is:
+We share an unquantized version of the model, facilitating fine-tuning. Please [get in touch](https://www.polyai.com/contact/) if you are interested in using the quantized version. The Tensorflow Hub url is:
 
 ```python
 module = tfhub.Module("http://models.poly-ai.com/encoder/v1/model.tar.gz")
@@ -45,7 +45,7 @@ See the [`encoder-introduction.ipynb` notebook](examples/encoder-introduction.ip
 
  **default**
 
- Takes as input `sentences`, a string tensor of sentences to encode. Outputs 1024 dimensional vectors, giving a representation for each sentence. These are the output of the sqrt-N reduction in the shared tranformer encoder.
+ Takes as input `sentences`, a string tensor of sentences to encode. Outputs 1024 dimensional vectors, giving a representation for each sentence. These are the output of the sqrt-N reduction in the shared tranformer encoder. These representations work well as input to classification models.
 
 ```python
 sentence_encodings = module(
@@ -95,7 +95,7 @@ tokens = module(
   signature="tokenize")
 ```
 
-## PolyAI Encoder with extra contexts
+## Multi Context PolyAI Encoder
 
 This is the encoder model from TODO, that uses extra contexts from the conversational history to refine the context representations. This is an unquantized version of the model. The Tensorflow Hub url is:
 
