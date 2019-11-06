@@ -31,7 +31,7 @@ Using these models requires [Tensorflow Hub](https://www.tensorflow.org/hub) and
 ## PolyAI Encoder
 
 This is the PolyAI encoder, using subword representations and transformer-style
-blocks to encode text, as described in TODO. The Tensorflow Hub url is:
+blocks to encode text, as described in TODO. This is an unquantized version of the model, facilitating fine-tuning. Please [get in touch](https://www.polyai.com/contact/) if you are interested in using the quantized version (under 60MB). The Tensorflow Hub url is:
 
 ```python
 module = tfhub.Module("http://models.poly-ai.com/encoder/v1/model.tar.gz")
@@ -95,7 +95,7 @@ tokens = module(
 
 ## PolyAI Encoder with extra contexts
 
-This is the encoder model from TODO, that uses extra contexts from the conversational history to refine the context representations. The Tensorflow Hub url is:
+This is the encoder model from TODO, that uses extra contexts from the conversational history to refine the context representations. This is an unquantized version of the model. The Tensorflow Hub url is:
 
 ```python
 module = tfhub.Module("http://models.poly-ai.com/extra_context_encoder/v1/model.tar.gz")
