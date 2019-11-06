@@ -23,7 +23,7 @@ Tensorflow Hub URLs will be enough
 
 # Requirements
 
-Using these models requires [Tensorflow Hub](https://www.tensorflow.org/hub) and [Tensorflow Text](https://www.tensorflow.org/tutorials/tensorflow_text/intro). In particular, Tensorflow text provides text processing ops that allow the model to directly work on text, requiring no pre-processing or tokenization from the user. We test using Tensorflow version 1.14 and Tensorflow Text version 0.6.0 (which is compatible with tf 1.14). A list of available versions can be found [on the tf text github repo](https://github.com/tensorflow/text/releases).
+Using these models requires [Tensorflow Hub](https://www.tensorflow.org/hub) and [Tensorflow Text](https://www.tensorflow.org/tutorials/tensorflow_text/intro). In particular, Tensorflow text provides ops that allow the model to directly work on text, requiring no pre-processing or tokenization from the user. We test using Tensorflow version 1.14 and Tensorflow Text version 0.6.0 (which is compatible with Tensorflow 1.14). A list of available versions can be found [on the tf text github repo](https://github.com/tensorflow/text/releases).
 
 
 # Models
@@ -32,8 +32,6 @@ Using these models requires [Tensorflow Hub](https://www.tensorflow.org/hub) and
 
 This is the PolyAI encoder, using subword representations and transformer-style
 blocks to encode text, as described in TODO. The Tensorflow Hub url is:
-
-`http://models.poly-ai.com/encoder/v1/model.tar.gz`
 
 ```python
 module = tfhub.Module("http://models.poly-ai.com/encoder/v1/model.tar.gz")
@@ -99,8 +97,6 @@ tokens = module(
 
 This is the encoder model from TODO, that uses extra contexts from the conversational history to refine the context representations. The Tensorflow Hub url is:
 
-`http://models.poly-ai.com/extra_context_encoder/v1/model.tar.gz`
-
 ```python
 module = tfhub.Module("http://models.poly-ai.com/extra_context_encoder/v1/model.tar.gz")
 ```
@@ -135,9 +131,9 @@ See [`encoder_client.py`](encoder_client.py) for code that computes these featur
 
 ## DSTC7 Ubuntu Encoder
 
-This is the PolyAI encoder with extra contexts, fine-tuned to the DSTC7 Ubuntu response ranking task. It has the exact same signatures as the extra context model, and has TFHub uri `http://models.poly-ai.com/dstc7_ubuntu_encoder/v1/model.tar.gz`.
+This is the PolyAI encoder with extra contexts, fine-tuned to the DSTC7 Ubuntu response ranking task. It has the exact same signatures as the extra context model, and has TFHub uri `http://models.poly-ai.com/dstc7_ubuntu_encoder/v1/model.tar.gz`. Note that this model requires prefixing the extra context features with `"0: "`, `"1: "`, `"2: "` etc.
 
-The [`dstc7/evaluate_encoder.py`](dstc7/evaluate_encoder.py) script uses this encoder to reproduce the results from TODO.
+The [`dstc7/evaluate_encoder.py`](dstc7/evaluate_encoder.py) script demonstrates using this encoder to reproduce the results from TODO.
 
 # Keras layers
 
@@ -150,13 +146,22 @@ A python class `EncoderClient` is implemented in [`encoder_client.py`](encoder_c
 ```python
 client = encoder_client.EncoderClient(
     "http://models.poly-ai.com/encoder/v1/model.tar.gz")
+
+# We will find good responses to the following context.    
 context_encoding = client.encode_contexts(["What's your name?"])
+
+# Let's rank the following responses as candidates.
 candidate_responses = ["No thanks.", "I'm Matt.", "Hey.", "I have a dog."]
 response_encodings = client.encode_responses(candidate_responses)
+
+# The scores are computed using the dot product.
 scores = response_encodings.dot(context_encodings.T).flatten()
+
+# Output the top scoring response.
 top_idx = scores.argmax()
 print(f"Best response: {candidate_responses[top_idx]}, score: {scores[top_idx]:.3f}")
-# Should print "Best response: I'm Matt., score: 0.377"
+
+# This should print "Best response: I'm Matt., score: 0.377".
 ```
 
 Internally it implements caching, deduplication, and batching, to help speed up encoding. Note that because it does batching internally, you can pass very large lists of sentences to encode without going out of memory.
