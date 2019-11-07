@@ -150,7 +150,7 @@ client = encoder_client.EncoderClient(
     "http://models.poly-ai.com/encoder/v1/model.tar.gz")
 
 # We will find good responses to the following context.    
-context_encoding = client.encode_contexts(["What's your name?"])
+context_encodings = client.encode_contexts(["What's your name?"])
 
 # Let's rank the following responses as candidates.
 candidate_responses = ["No thanks.", "I'm Matt.", "Hey.", "I have a dog."]
