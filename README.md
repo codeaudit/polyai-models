@@ -30,10 +30,10 @@ Using these models requires [Tensorflow Hub](https://www.tensorflow.org/hub) and
 
 ## ConveRT
 
-This is the ConveRT dual-encoder model, using subword representations and ligher-weight more efficient transformer-style
+This is the ConveRT dual-encoder model, using subword representations and lighter-weight more efficient transformer-style
 blocks to encode text, as described in TODO.
 It provides powerful representations for conversational data, and can also be used as a response ranker.
-The model cost under $100 to train from scratch, can be quantized to under 60MB, and is competitive with larger Transformer networks on conversational tasks.
+The model costs under $100 to train from scratch, can be quantized to under 60MB, and is competitive with larger Transformer networks on conversational tasks.
 We share an unquantized version of the model, facilitating fine-tuning. Please [get in touch](https://www.polyai.com/contact/) if you are interested in using the quantized ConveRT model. The Tensorflow Hub url is:
 
 ```python
