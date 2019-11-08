@@ -15,7 +15,7 @@ import tensorflow_text
 
 
 class EncoderLayerBase(tf.layers.Layer):
-    """Base keras wrapper around the Encoder tfhub module.
+    """Base keras wrapper around a ConveRT encoder tfhub module.
 
     Each layer defines the subgraphs of the full model graph that it uses. This
     ensures the layer declares the correct variables as trainable, and adds
@@ -90,7 +90,7 @@ def _strip_scope_from_name(scope, tensor_name):
 
 
 class Subgraph(Enum):
-    """Subgraphs of the encoder model."""
+    """Subgraphs of the ConveRT model."""
     CONTEXT_EMBEDDING = 1
     EXTRA_CONTEXT_EMBEDDING = 2
     RESPONSE_EMBEDDING = 3

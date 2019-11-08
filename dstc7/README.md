@@ -22,7 +22,7 @@ You should now have a directory containing `ubuntu_responses_subtask_1.tsv` and
 python dstc7/evaluate_encoder.py \
     --examples_json ubuntu_test_subtask_1.json \
     --labels_tsv ubuntu_responses_subtask_1.tsv \
-    --encoder http://models.poly-ai.com/dstc7_ubuntu_encoder/v1/model.tar.gz
+    --encoder http://models.poly-ai.com/ubuntu_convert/v1/model.tar.gz
 ```
 
 this should give the final output:

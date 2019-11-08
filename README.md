@@ -6,16 +6,16 @@
 
 *Neural Models for Conversational AI*
 
-This repo shares models from [PolyAI](https://poly-ai.com) publications, including the *PolyAI encoder model*. These are shared as Tensorflow Hub modules, listed below.
+This repo shares models from [PolyAI](https://poly-ai.com) publications, including the *ConveRT* efficient dual-encoder model. These are shared as Tensorflow Hub modules, listed below.
 We also share example code and utility classes, though for many the
 Tensorflow Hub URLs will be enough.
 
 
 * [Requirements](#requirements)
 * [Models](#models)
-  * [PolyAI Encoder](#polyai-encoder)
-  * [Multi Context PolyAI Encoder](#multi-context-polyai-encoder)
-  * [DSTC7 Ubuntu Encoder](#dstc7-ubuntu-encoder)
+  * [ConveRT](#convert)
+  * [Multi-Context ConveRT](#multi-context-convert)
+  * [ConveRT finetuned on Ubuntu](#convert-finetuned-on-ubuntu)
 * [Keras layers](#keras-layers)
 * [Encoder client](#encoder-client)
 * [Development](#development)
@@ -28,15 +28,16 @@ Using these models requires [Tensorflow Hub](https://www.tensorflow.org/hub) and
 
 # Models
 
-## PolyAI Encoder
+## ConveRT
 
-This is the PolyAI encoder, using subword representations and ligher-weight more efficient transformer-style
+This is the ConveRT dual-encoder model, using subword representations and lighter-weight more efficient transformer-style
 blocks to encode text, as described in TODO.
-The model cost under $100 to train from scratch, can be quantized to under 60MB, and is competitive with larger Transformer networks on conversational tasks.
-We share an unquantized version of the model, facilitating fine-tuning. Please [get in touch](https://www.polyai.com/contact/) if you are interested in using the quantized version. The Tensorflow Hub url is:
+It provides powerful representations for conversational data, and can also be used as a response ranker.
+The model costs under $100 to train from scratch, can be quantized to under 60MB, and is competitive with larger Transformer networks on conversational tasks.
+We share an unquantized version of the model, facilitating fine-tuning. Please [get in touch](https://www.polyai.com/contact/) if you are interested in using the quantized ConveRT model. The Tensorflow Hub url is:
 
 ```python
-module = tfhub.Module("http://models.poly-ai.com/encoder/v1/model.tar.gz")
+module = tfhub.Module("http://models.poly-ai.com/convert/v1/model.tar.gz")
 ```
 
 See the [`encoder-introduction.ipynb` notebook](examples/encoder-introduction.ipynb) for some examples of how to use this model.
@@ -95,17 +96,17 @@ tokens = module(
   signature="tokenize")
 ```
 
-## Multi Context PolyAI Encoder
+## Multi-Context ConveRT
 
-This is the encoder model from TODO, that uses extra contexts from the conversational history to refine the context representations. This is an unquantized version of the model. The Tensorflow Hub url is:
+This is the multi-context ConveRT model from TODO, that uses extra contexts from the conversational history to refine the context representations. This is an unquantized version of the model. The Tensorflow Hub url is:
 
 ```python
-module = tfhub.Module("http://models.poly-ai.com/extra_context_encoder/v1/model.tar.gz")
+module = tfhub.Module("http://models.poly-ai.com/multi_context_convert/v1/model.tar.gz")
 ```
 
 ### TFHub signatures
 
-This model has the same signatures as the above PolyAI Encoder, except for the `encode_context` signature that also takes the extra contexts as input. The extra contexts are the previous messages in the dialogue (typically at most 10) prior to the immediate context, and must be joined with spaces from most recent to oldest.
+This model has the same signatures as the ConveRT encoder, except for the `encode_context` signature that also takes the extra contexts as input. The extra contexts are the previous messages in the dialogue (typically at most 10) prior to the immediate context, and must be joined with spaces from most recent to oldest.
 
 For example, consider the dialogue:
 
@@ -131,9 +132,9 @@ context_encodings = module(
 See [`encoder_client.py`](encoder_client.py) for code that computes these features.
 
 
-## DSTC7 Ubuntu Encoder
+## ConveRT finetuned on Ubuntu
 
-This is the PolyAI encoder with extra contexts, fine-tuned to the DSTC7 Ubuntu response ranking task. It has the exact same signatures as the extra context model, and has TFHub uri `http://models.poly-ai.com/dstc7_ubuntu_encoder/v1/model.tar.gz`. Note that this model requires prefixing the extra context features with `"0: "`, `"1: "`, `"2: "` etc.
+This is the multi-context ConveRT model, fine-tuned to the DSTC7 Ubuntu response ranking task. It has the exact same signatures as the extra context model, and has TFHub uri `http://models.poly-ai.com/ubuntu_convert/v1/model.tar.gz`. Note that this model requires prefixing the extra context features with `"0: "`, `"1: "`, `"2: "` etc.
 
 The [`dstc7/evaluate_encoder.py`](dstc7/evaluate_encoder.py) script demonstrates using this encoder to reproduce the results from TODO.
 
@@ -147,7 +148,7 @@ A python class `EncoderClient` is implemented in [`encoder_client.py`](encoder_c
 
 ```python
 client = encoder_client.EncoderClient(
-    "http://models.poly-ai.com/encoder/v1/model.tar.gz")
+    "http://models.poly-ai.com/convert/v1/model.tar.gz")
 
 # We will find good responses to the following context.    
 context_encodings = client.encode_contexts(["What's your name?"])

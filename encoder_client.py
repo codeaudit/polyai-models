@@ -18,7 +18,7 @@ import tensorflow_text
 
 
 class EncoderClient:
-    """A client for running inference with an Encoder model.
+    """A client for running inference with a ConveRT encoder model.
 
     This wraps tensorflow hub, and gives an interface to input text, and
     get numpy encoding vectors in return. It includes a few optimizations to
