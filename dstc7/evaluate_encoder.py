@@ -1,4 +1,4 @@
-"""Script for evaluating a PolyAI encoder model on the DSTC 7 test data.
+"""Script for evaluating a ConveRT model on the DSTC 7 test data.
 
 Usage:
 
@@ -28,7 +28,7 @@ def _parse_args():
         "--encoder",
         help="TFhub uri for encoder model.",
         default=(
-            "http://models.poly-ai.com/dstc7_ubuntu_encoder/v1/model.tar.gz"),
+            "http://models.poly-ai.com/ubuntu_convert/v1/model.tar.gz"),
     )
     parser.add_argument(
         "--examples_json",
