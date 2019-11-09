@@ -40,7 +40,7 @@ We share an unquantized version of the model, facilitating fine-tuning. Please [
 module = tfhub.Module("http://models.poly-ai.com/convert/v1/model.tar.gz")
 ```
 
-See the [`encoder-introduction.ipynb` notebook](examples/encoder-introduction.ipynb) for some examples of how to use this model.
+See the [`convert-examples.ipynb` notebook](examples/convert-examples.ipynb) for some examples of how to use this model.
 
 ### TFHub signatures
 
