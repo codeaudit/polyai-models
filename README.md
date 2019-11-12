@@ -18,6 +18,7 @@ Tensorflow Hub URLs will be enough.
   * [ConveRT finetuned on Ubuntu](#convert-finetuned-on-ubuntu)
 * [Keras layers](#keras-layers)
 * [Encoder client](#encoder-client)
+* [Citations](#citations)
 * [Development](#development)
 
 
@@ -31,7 +32,7 @@ Using these models requires [Tensorflow Hub](https://www.tensorflow.org/hub) and
 ## ConveRT
 
 This is the ConveRT dual-encoder model, using subword representations and lighter-weight more efficient transformer-style
-blocks to encode text, as described in TODO.
+blocks to encode text, as described in [the ConveRT paper](https://arxiv.org/abs/1911.03688).
 It provides powerful representations for conversational data, and can also be used as a response ranker.
 The model costs under $100 to train from scratch, can be quantized to under 60MB, and is competitive with larger Transformer networks on conversational tasks.
 We share an unquantized version of the model, facilitating fine-tuning. Please [get in touch](https://www.polyai.com/contact/) if you are interested in using the quantized ConveRT model. The Tensorflow Hub url is:
@@ -98,7 +99,7 @@ tokens = module(
 
 ## Multi-Context ConveRT
 
-This is the multi-context ConveRT model from TODO, that uses extra contexts from the conversational history to refine the context representations. This is an unquantized version of the model. The Tensorflow Hub url is:
+This is the multi-context ConveRT model from [the ConveRT paper](https://arxiv.org/abs/1911.03688), that uses extra contexts from the conversational history to refine the context representations. This is an unquantized version of the model. The Tensorflow Hub url is:
 
 ```python
 module = tfhub.Module("http://models.poly-ai.com/multi_context_convert/v1/model.tar.gz")
@@ -136,7 +137,7 @@ See [`encoder_client.py`](encoder_client.py) for code that computes these featur
 
 This is the multi-context ConveRT model, fine-tuned to the DSTC7 Ubuntu response ranking task. It has the exact same signatures as the extra context model, and has TFHub uri `http://models.poly-ai.com/ubuntu_convert/v1/model.tar.gz`. Note that this model requires prefixing the extra context features with `"0: "`, `"1: "`, `"2: "` etc.
 
-The [`dstc7/evaluate_encoder.py`](dstc7/evaluate_encoder.py) script demonstrates using this encoder to reproduce the results from TODO.
+The [`dstc7/evaluate_encoder.py`](dstc7/evaluate_encoder.py) script demonstrates using this encoder to reproduce the results from [the ConveRT paper](https://arxiv.org/abs/1911.03688).
 
 # Keras layers
 
@@ -168,6 +169,20 @@ print(f"Best response: {candidate_responses[top_idx]}, score: {scores[top_idx]:.
 ```
 
 Internally it implements caching, deduplication, and batching, to help speed up encoding. Note that because it does batching internally, you can pass very large lists of sentences to encode without going out of memory.
+
+# Citations
+
+* [ConveRT: Efficient and Accurate Conversational Representations from Transformers](https://arxiv.org/abs/1911.03688)
+```bibtext
+@article{Henderson2019convert,
+    title={{ConveRT}: Efficient and Accurate Conversational Representations from Transformers},
+    author={Matthew Henderson and I{\~{n}}igo Casanueva and Nikola Mrk\v{s}i\'{c} and Pei-Hao Su and Tsung-Hsien and Ivan Vuli\'{c}},
+    journal={CoRR},
+    volume={abs/1911.03688},
+    year={2019},
+    url={http://arxiv.org/abs/1911.03688},
+}
+```
 
 # Development
 
